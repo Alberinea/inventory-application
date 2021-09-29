@@ -1,0 +1,52 @@
+<%- include('./partials/head.ejs') %>
+
+    <title><%= movie.title %> | INCB</title>
+  </head>
+  <body class="flex flex-col">
+    <%- include('./partials/header.ejs') %>
+
+    <% let hours = movie.runtime / 60 %> 
+    <% hours = Math.floor(hours) %> 
+
+    <main class="container mx-auto px-5 pt-16 flex-1">
+      <div class="bg-gray-800 p-7 text-white">
+        <div class="flex justify-between pb-10">
+          <h1 class="text-5xl font-extrabold"><%= movie.title %></h1>
+          <div class="text-2xl flex">
+            <p class="leading-loose">
+              Rating:
+              <span class="font-bold"><%= movie.imdb.rating %> </span>/ 10
+            </p>
+            <p class="leading-loose ml-10">
+              Votes:
+              <span class="font-bold"><%= movie.imdb.votes %> </span>
+            </p>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-16">
+          <img
+            class=""
+            src="<%= movie.poster%>"
+            alt="<%= movie.title %> poster"
+          />
+          <div class="col-span-2 text-2xl relative">
+            <h4 class="pb-3"><span class="font-bold">Years:</span> <%= movie.year %></h4>
+            <h4 class="pb-3"><span class="font-bold">Rated:</span> <%= movie.rated %></h4>
+            <h4 class="pb-3"><span class="font-bold">Runtime:</span> <%= hours %>h <%= movie.runtime - hours * 60 %>m</h4>  </h4>
+            <h4 class="pb-3"><span class="font-bold">Directors:</span> <%= movie.directors.join(', ') %></h4>
+            <h4 class="pb-3"><span class="font-bold">Writers:</span> <%= movie.writers.join(', ') %></h4>
+            <h4 class="pb-3"><span class="font-bold">Stars:</span> <%= movie.cast.join(', ') %></h4>
+            <h4 class=""><span class="font-bold">Plot:</span> <br> <%= movie.plot %></h4>
+            <div class="flex absolute bottom-0">
+              <% movie.genres.forEach((genre) => { %>
+                <a href="/genre/<%= genre.toLowerCase() %> " class="rounded-full border-white border-2 py-1 px-3 mr-5 hover:bg-gray-600"><%= genre %> </a>
+              <% }) %> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <%- include('./partials/footer.ejs') %>
+  </body>
+</html>
