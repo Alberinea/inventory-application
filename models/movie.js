@@ -27,8 +27,12 @@ const movieSchema = new Schema({
     type: Number,
     required: true,
   },
+  genres: {
+    type: Array,
+    required: true,
+  },
 });
 
-const Movie = mongoose.model('movie', movieSchema);
+const Movie = mongoose.model('movies', movieSchema);
 
 export default Movie;

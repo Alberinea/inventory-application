@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import indexRouter from './routes/indexRoutes.js';
-import titleRouter from './routes/titleRoutes.js'
+import titleRouter from './routes/titleRoutes.js';
+import genreRouter from './routes/genreRoutes.js'
 
 dotenv.config();
 
@@ -21,13 +22,11 @@ mongoose
   });
 
 app.use(logger('dev'));
-app.use([indexRouter, titleRouter]);
+app.use([indexRouter, titleRouter, genreRouter]);
 
 app.use((req, res) => {
   res.status(404).render('404');
 });
 
-// TODO add comment at title
-// TODO Add clickable tags at title
 // TODO Add search function and nav
 // TODO Add CRUD
