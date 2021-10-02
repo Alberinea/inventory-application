@@ -4,7 +4,7 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import indexRouter from './routes/indexRoutes.js';
 import titleRouter from './routes/titleRoutes.js';
-import searchRouter from './routes/searchRoutes.js'
+import searchRouter from './routes/searchRoutes.js';
 import passwordRouter from './routes/passwordRoutes.js';
 
 dotenv.config();
@@ -14,10 +14,10 @@ const port = process.env.PORT || 5000;
 
 app.set('view engine', 'ejs');
 
-
 mongoose
   .connect(
-    `mongodb+srv://${process.env.URI_USERNAME}:${process.env.URI_PASSWORD}@cluster0.4gvsm.mongodb.net/sample_mflix?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.URI_USERNAME}:${process.env.URI_PASSWORD}@cluster0.4gvsm.mongodb.net/sample_mflix?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(app.listen(port, () => console.log(`listening on port ${port}`)))
   .catch((err) => {
