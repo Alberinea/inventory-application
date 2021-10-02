@@ -4,7 +4,8 @@ import logger from 'morgan';
 import mongoose from 'mongoose';
 import indexRouter from './routes/indexRoutes.js';
 import titleRouter from './routes/titleRoutes.js';
-import genreRouter from './routes/genreRoutes.js'
+import searchRouter from './routes/searchRoutes.js'
+import passwordRouter from './routes/passwordRoutes.js';
 
 dotenv.config();
 
@@ -12,7 +13,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.set('view engine', 'ejs');
-express.urlencoded({ extended: true });
+
 
 mongoose
   .connect(process.env.URI)
@@ -22,7 +23,8 @@ mongoose
   });
 
 app.use(logger('dev'));
-app.use([indexRouter, titleRouter, genreRouter]);
+app.use(express.urlencoded({ extended: true }));
+app.use([indexRouter, titleRouter, searchRouter, passwordRouter]);
 
 app.use((req, res) => {
   res.status(404).render('404');

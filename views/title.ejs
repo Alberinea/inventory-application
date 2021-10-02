@@ -11,7 +11,8 @@
     <main class="container mx-auto px-5 pt-16 flex-1">
       <section class="bg-gray-800 p-7 text-white">
         <div class="flex justify-between pb-10">
-          <h1 class="text-5xl font-extrabold w-3/5"><%= movie.title %></h1>
+          <h1 class="editable text-5xl font-extrabold w-3/5"><%= movie.title %></h1>
+          <input required class="editable hidden text-4xl text-black font-bold rounded-md" id="title" value="<%= movie.title %>" type="text">
           <div class="text-2xl flex">
             <p class="leading-loose">
               Rating:
@@ -25,37 +26,64 @@
         </div>
         <div class="grid grid-cols-3 gap-16">
           <img
-            class=""
+            class="h-full"
             src="<%= movie.poster%>"
             alt="<%= movie.title %> poster"
           />
           <div class="col-span-2 text-2xl relative">
-            <h4 class="pb-3"><span class="font-bold">Years:</span> <%= movie.year %></h4>
-            <h4 class="pb-3"><span class="font-bold">Rated:</span> <%= movie.rated %></h4>
-            <h4 class="pb-3"><span class="font-bold">Runtime:</span> <%= hours %>h <%= movie.runtime - hours * 60 %>m</h4>  </h4>
-            <h4 class="pb-3"><span class="font-bold">Directors:</span> <%= movie.directors.join(', ') %></h4>
-            <h4 class="pb-3"><span class="font-bold">Writers:</span> <%= movie.writers.join(', ') %></h4>
-            <h4 class="pb-3"><span class="font-bold">Stars:</span> <%= movie.cast.join(', ') %></h4>
-            <h4 class=""><span class="font-bold">Plot:</span> <br> <%= movie.plot %></h4>
+            <label class="editable hidden font-bold mr-[3.75rem]" for="year">Years:</label>
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.year %>" type="text" name="" id="year"> <br class="editable hidden">
+            <label class="editable hidden font-bold mr-[3.37rem]" for="rated">Rated:</label>
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.rated %>" type="text" name="" id="rated"> <br class="editable hidden"> 
+            <label class="editable hidden font-bold mr-[1.45rem]" for="runtime">Runtime:</label>
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.runtime %>" type="text" name="" id="runtime"> <br class="editable hidden">
+            <label class="editable hidden font-bold mr-[1.125rem]" for="directors">Directors:</label>
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.directors.join(', ') %>" type="text" name="" id="directors"> <br class="editable hidden">
+            <label class="editable hidden font-bold mr-9" for="writers">Writers:</label>
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.writers.join(', ') %>" type="text" name="" id="writers"> <br class="editable hidden">
+            <label class="editable hidden font-bold mr-[3.875rem]" for="casts">Casts:</label>
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.cast.join(', ') %>" type="text" name="" id="casts"> <br class="editable hidden">
+            <label class="editable hidden font-bold" for="plot">Plot:</label>  <br class="editable hidden">
+            <textarea class="editable hidden text-black text-xl h-1/4 w-full mt-4 rounded-md" name="" id="plot" cols="30" rows="10"><%= movie.plot %> </textarea>
+            <h4 class="editable pb-3"><span class="font-bold">Years:</span> <%= movie.year %></h4>
+            <h4 class="editable pb-3"><span class="font-bold">Rated:</span> <%= movie.rated %></h4>
+            <h4 class="editable pb-3"><span class="font-bold">Runtime:</span> <%= hours %>h <%= movie.runtime - hours * 60 %>m</h4>  </h4>
+            <h4 class="editable pb-3"><span class="font-bold">Directors:</span> <%= movie.directors.join(', ') %></h4>
+            <h4 class="editable pb-3"><span class="font-bold">Writers:</span> <%= movie.writers.join(', ') %></h4>
+            <h4 class="editable pb-3"><span class="font-bold">Casts:</span> <%= movie.cast.join(', ') %></h4>
+            <h4 class="editable"><span class="font-bold">Plot:</span> <br class="editable"> <%= movie.plot %></h4>
             <div class="flex absolute bottom-0">
               <% movie.genres.forEach((genre) => { %>
-                <a href="/genre/<%= genre%>/1" class="rounded-full border-white border-2 py-1 px-3 mr-5 hover:bg-gray-600"><%= genre %> </a>
+                <a href="/search/?genres=<%= genre %>" class="rounded-full border-white border-2 py-1 px-3 mr-5 hover:bg-gray-600"><%= genre %> </a>
               <% }) %> 
             </div>
+            <span class="editable hidden cancel text-3xl hover:underline cursor-pointer font-bold absolute bottom-0 right-0 mr-36">Cancel</span>
+            <span class="editable hidden confirm text-blue-500 text-3xl hover:underline cursor-pointer font-bold absolute bottom-0 right-0">Confirm</span>
+            <span data-id="<%= movie_id %>" class="editable edit text-3xl hover:underline cursor-pointer font-bold absolute bottom-0 right-0 mr-28">Edit</span>
+            <a href="/password/?doc=title&id=<%= movie_id %>" class="editable text-3xl hover:underline cursor-pointer font-bold absolute bottom-0 right-0 text-red-500">Delete</a>
           </div>
         </div>
       </section>
 
       <section class="mt-16">
-        <div class="text-4xl">
+        <div class="text-4xl border-b-2 pb-6">
           <h3><%= comments.length %> <%= comments.length > 1 ? 'Comments' : 'Comment' %> </h3>
         </div>
+        <form class="pt-12 pb-2" action="/title" method="POST">
+          <input type="hidden" name="movie_id" value="<%= movie_id %>">
+          <input name="name"class="w-1/4 text-2xl border-opacity-20 mb-4 border-0 border-b-2 border-black focus:border-black focus:border-b-4 focus:outline-none focus:ring-0" placeholder="Username..." type="text">
+          <div class="flex text-3xl">
+            <input required name="text"class="w-full mr-4 border-opacity-20 text-2xl mb-4 border-0 border-b-2 border-black focus:border-black focus:border-b-4 focus:outline-none focus:ring-0" placeholder="Leave a comment..." type="text">
+            <button class="px-4 ml-2 bg-gray-200 rounded-md hover:bg-gray-700 hover:text-white" type="submit">Submit</button>
+          </div>
+        </form>
         <div class="py-8 text-2xl">
           <% comments.forEach((comment) => { %>
-            <div class="py-4">
+            <div class="py-4 relative">
+              <a href="/password/?doc=title&id=<%= comment._id %>&movie_id=<%= movie_id %>" data-movie_id="<%= movie._id %>" data-id="<%= comment._id %>" class="absolute right-0 hover:cursor-pointer text-red-600 p-1 font-bold delete">x</a>
               <div class="flex">
                 <h4 class="font-medium mr-4"><%= comment.name %></h4>
-                <p class="opacity-70"><%= new Date().getFullYear() - comment.date.getFullYear() %> years ago</p>
+                <p class="opacity-70"><%= moment(comment.date).fromNow() %></p>
               </div>
               <p class="my-3"><%= comment.text %> </p>
             </div>
@@ -64,7 +92,49 @@
       </section>
 
     </main>
-
+    
     <%- include('./partials/footer.ejs') %>
+    
+    <script>
+      const edit = document.querySelector('.edit')
+      const cancel = document.querySelector('.cancel')
+      const confirmButton = document.querySelector('.confirm')
+
+      const title = document.getElementById('title')
+      const year = document.getElementById('year')
+      const rated = document.getElementById('rated')
+      const runtime = document.getElementById('runtime')
+      const directors = document.getElementById('directors')
+      const writers = document.getElementById('writers')
+      const casts = document.getElementById('casts')
+      const plot = document.getElementById('plot')
+
+      const showAndHideInputs = () => {
+        document.querySelectorAll('.editable').forEach((editable) => {
+         if (!editable.classList.contains('hidden')) {
+           editable.classList.add('hidden')
+         } else {
+           editable.classList.remove('hidden')
+         }
+        })
+      }
+
+      const updateMovie = () => {
+        const endpoint = `/title/?title=${title.value}&year=${year.value}&rated=${rated.value}&runtime=${runtime.value}&directors=${directors.value}&writers=${writers.value}&casts=${casts.value}&plot=${plot.value}&id=${edit.dataset.id}`
+
+        fetch(endpoint, {
+          method: 'PUT',
+        })
+        .then(fetch(`/title/${edit.dataset.id}` , {
+          method: 'GET',
+        }))
+        .then(location.reload())
+        .catch((err) => console.log(err))
+      }
+
+      edit.addEventListener('click', () => showAndHideInputs())
+      cancel.addEventListener('click', () => showAndHideInputs())
+      confirmButton.addEventListener('click', () => updateMovie())
+    </script>
   </body>
 </html>

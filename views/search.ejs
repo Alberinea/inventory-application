@@ -1,0 +1,71 @@
+<%- include('./partials/head.ejs') %>
+
+<title><%= query %> | INCB</title>
+  </head>
+
+  <body class="flex flex-col">
+    <%- include('./partials/header.ejs') %>
+
+    <main class="container mx-auto pt-16 flex-1 text-center">
+      <h2 class="text-4xl text-red-500 font-semibold"><%= queryKeys === 'title' ? `Searched for "${query}"` : query %> </h2>
+      <section class="pt-16 flex flex-wrap justify-center">
+        <% movies.forEach((movie) => { %>
+        <div class="text-center bg-gray-900 rounded-lg text-white h-[435px] w-[300px] m-4">
+            <a href="/title/<%= movie._id %>">
+              <img
+                class="w-full h-[350px]"
+                src="<%= movie.poster %>"
+                alt="<%= movie.title %> poster"
+              />
+            </a>
+            <h2
+              class="
+                p-2
+                whitespace-nowrap
+                overflow-hidden overflow-ellipsis
+                font-medium
+                text-lg
+              "
+            >
+              <a class="hover:underline" href="/title/<%= movie._id %>"
+                ><%= movie.title %></a
+              >
+            </h2>
+            <div class="flex justify-center pb-2">
+              <p><%= movie.imdb.rating %></p>
+            </div>
+        </div>
+        <% }) %>
+      </section>
+
+      <div class="flex justify-center py-10 text-2xl">
+          <a href="/search/?<%= queryKeys %>=<%= query %>&page=1" class="<%= Number(page - 3) < 1 && Number(page) !== 3 ? 'hidden' : null %> mx-2 py-1 px-3 border-2 border-black hover:font-bold">1</a>
+          <p data-query="<%= query %>" data-keys="<%= queryKeys %>" class="<%= Number(page - 3) < 1 ? 'hidden' : null %> mx-2 py-1 px-3 border-2 border-black cursor-pointer hover:font-bold dot">...</p>
+          <a href="/search/?<%= queryKeys %>=<%= query %>&page=<%= Number(page) - 1 %>" class="<%= Number(page - 1) < 1 ? 'hidden' : null %> mx-2 py-1 px-3 border-2 border-black hover:font-bold"><%= Number(page) - 1 %></a>
+          <p class="mx-2 py-1 px-3 border-2 border-black bg-gray-800 text-white"><%= Number(page) %></p>
+          <a href="/search/?<%= queryKeys %>=<%= query %>&page=<%= Number(page) + 1 %>" class="<%= Number(page + 1) > Math.ceil(count / limit) ? 'hidden' : null %> mx-2 py-1 px-3 border-2 border-black hover:font-bold"><%= Number(page) + 1 %></a>
+          <p data-query="<%= query %>" data-keys="<%= queryKeys %>" class="<%= Number(page + 3) > Math.ceil(count / limit) ? 'hidden' : null %> mx-2 py-1 px-3 border-2 border-black cursor-pointer hover:font-bold dot">...</p>
+          <a href="/search/?<%= queryKeys %>=<%= query %>&page=<%= Math.ceil(count / limit) %>" class="<%= Number(page + 3) > Math.ceil(count / limit) && Number(page) !== Math.ceil(count / limit) - 2 ? 'hidden' : null %> hover:font-bold mx-2 py-1 px-3 border-2 border-black"><%= Math.ceil(count / limit) %></a>
+      </div> 
+
+    </main>
+
+    <%- include('./partials/footer.ejs') %>
+
+    <script>
+      const selectPages = (query, queryKeys) => {
+        const page = prompt('Jump to page', 1)
+        if (!page) return
+        if (isNaN(Number(page)) ) {
+          alert('Please insert number')
+          return
+        } 
+        window.location.href = `/search/?${queryKeys}=${query}&page=${page}`
+      }
+
+      document.querySelectorAll('.dot').forEach((dot) => {
+        dot.addEventListener('click', () => selectPages(dot.dataset.query, dot.dataset.keys))
+      })
+    </script>
+  </body>
+</html>

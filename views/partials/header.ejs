@@ -1,12 +1,30 @@
-<header class="py-2 bg-black text-white">
+<header class="py-4 bg-black text-white">
   <nav>
-    <ul class="flex justify-between mx-10">
-      <li class=""><a class="hover:font-bold text-2xl m-auto text-red-500" href="/">INCB</a></li>
-      <li class="leading-loose">
-        <a class="hover:font-bold ml-3" href="/all">All</a>
-        <a class="hover:font-bold ml-3" href="/genres">Genres</a>
-        <a class="hover:font-bold ml-3" href="/popular">Popular</a>
+    <ul class="flex justify-between mx-10 text-xl leading-loose">
+      <li class="">
+        <a class="font-bold text-4xl m-auto text-red-500 hover:bg-gray-700 px-2 rounded-md" href="/"
+          >INCB</a
+        >
+      </li>
+      <div class="text-center">
+        <input
+          class="rounded-2xl border-2 w-[30vw] search text-black  text-xl"
+          type="search"
+          placeholder="Search for title..."
+        />
+      </div>
+      <li class="flex">
+        <a class="hover:bg-gray-700 px-2 rounded-md" href="/search">All Movies</a>
       </li>
     </ul>
   </nav>
 </header>
+<script>
+  const searchBar = document.querySelector('input.search');
+
+  searchBar.addEventListener('keydown', (e) =>
+    e.key === 'Enter'
+      ? (window.location.href = `/search/?title=${searchBar.value}`)
+      : null
+  );
+</script>

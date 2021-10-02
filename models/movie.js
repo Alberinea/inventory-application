@@ -31,6 +31,30 @@ const movieSchema = new Schema({
     type: Array,
     required: true,
   },
+  runtime: {
+    type: Number,
+    required: true,
+  },
+  rated: {
+    type: String,
+    required: true,
+  },
+  directors: {
+    type: Array,
+    required: true,
+  },
+  writers: {
+    type: Array,
+    required: true,
+  },
+  plot: {
+    type: String,
+    required: true,
+  },
+  casts: {
+    type: Array,
+    required: true,
+  },
 });
 
 const Movie = mongoose.model('movies', movieSchema);
