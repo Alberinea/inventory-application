@@ -9,7 +9,7 @@ export const indexGetController = async (req, res) => {
       poster: { $exists: true },
     })
       .sort({ 'awards.wins': -1 })
-      .limit(5)
+      .limit(6)
       .lean();
     const newestMovies = await Movie.find({
       type: 'movie',
@@ -17,7 +17,7 @@ export const indexGetController = async (req, res) => {
       poster: { $exists: true },
     })
       .sort({ released: -1 })
-      .limit(5)
+      .limit(6)
       .lean();
     res.status(200).render('index', { popularMovies, newestMovies });
   } catch (err) {

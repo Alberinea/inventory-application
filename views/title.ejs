@@ -10,9 +10,9 @@
 
     <main class="container mx-auto px-5 pt-16 flex-1">
       <section class="bg-gray-800 p-7 text-white">
-        <div class="flex justify-between pb-10">
-          <h1 class="editable text-5xl font-extrabold w-3/5"><%= movie.title %></h1>
-          <input required class="editable hidden text-4xl text-black font-bold rounded-md" id="title" value="<%= movie.title %>" type="text">
+        <div class="flex lg:justify-between items-center pb-10 lg:flex-row flex-col">
+          <h1 class="editable text-5xl font-extrabold w-3/5 lg:text-left text-center lg:pb-0 pb-6"><%= movie.title %></h1>
+          <input required class="editable hidden text-4xl text-black font-bold rounded-md md:w-auto w-full" id="title" value="<%= movie.title %>" type="text">
           <div class="text-2xl flex">
             <p class="leading-loose">
               Rating:
@@ -24,25 +24,25 @@
             </p>
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-16">
+        <div class="grid lg:grid-cols-3 grid-cols-none gap-16">
           <img
-            class="h-full"
+            class="lg:h-full md:h-[750px] h-[450px] w-full"
             src="<%= movie.poster%>"
             alt="<%= movie.title %> poster"
           />
-          <div class="col-span-2 text-2xl relative">
+          <div class="lg:col-span-2 text-2xl relative">
             <label class="editable hidden font-bold mr-[3.75rem]" for="year">Years:</label>
-            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.year %>" type="text" name="" id="year"> <br class="editable hidden">
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md sm:w-3/4 w-full mt-4" value="<%= movie.year %>" type="text" name="" id="year"> <br class="editable hidden">
             <label class="editable hidden font-bold mr-[3.37rem]" for="rated">Rated:</label>
-            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.rated %>" type="text" name="" id="rated"> <br class="editable hidden"> 
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md sm:w-3/4 w-full mt-4" value="<%= movie.rated %>" type="text" name="" id="rated"> <br class="editable hidden"> 
             <label class="editable hidden font-bold mr-[1.45rem]" for="runtime">Runtime:</label>
-            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.runtime %>" type="text" name="" id="runtime"> <br class="editable hidden">
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md sm:w-3/4 w-full mt-4" value="<%= movie.runtime %>" type="text" name="" id="runtime"> <br class="editable hidden">
             <label class="editable hidden font-bold mr-[1.125rem]" for="directors">Directors:</label>
-            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.directors.join(', ') %>" type="text" name="" id="directors"> <br class="editable hidden">
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md sm:w-3/4 w-full mt-4" value="<%= movie.directors.join(', ') %>" type="text" name="" id="directors"> <br class="editable hidden">
             <label class="editable hidden font-bold mr-9" for="writers">Writers:</label>
-            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.writers.join(', ') %>" type="text" name="" id="writers"> <br class="editable hidden">
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md sm:w-3/4 w-full mt-4" value="<%= movie.writers.join(', ') %>" type="text" name="" id="writers"> <br class="editable hidden">
             <label class="editable hidden font-bold mr-[3.875rem]" for="casts">Casts:</label>
-            <input required class="editable hidden text-black text-xl mb-2 rounded-md w-3/4" value="<%= movie.cast.join(', ') %>" type="text" name="" id="casts"> <br class="editable hidden">
+            <input required class="editable hidden text-black text-xl mb-2 rounded-md sm:w-3/4 w-full mt-4" value="<%= movie.cast.join(', ') %>" type="text" name="" id="casts"> <br class="editable hidden">
             <label class="editable hidden font-bold" for="plot">Plot:</label>  <br class="editable hidden">
             <textarea class="editable hidden text-black text-xl h-1/4 w-full mt-4 rounded-md" name="" id="plot" cols="30" rows="10"><%= movie.plot %> </textarea>
             <h4 class="editable pb-3"><span class="font-bold">Years:</span> <%= movie.year %></h4>
@@ -52,15 +52,19 @@
             <h4 class="editable pb-3"><span class="font-bold">Writers:</span> <%= movie.writers.join(', ') %></h4>
             <h4 class="editable pb-3"><span class="font-bold">Casts:</span> <%= movie.cast.join(', ') %></h4>
             <h4 class="editable"><span class="font-bold">Plot:</span> <br class="editable"> <%= movie.plot %></h4>
-            <div class="flex absolute bottom-0">
-              <% movie.genres.forEach((genre) => { %>
-                <a href="/search/?genres=<%= genre %>" class="rounded-full border-white border-2 py-1 px-3 mr-5 hover:bg-gray-600"><%= genre %> </a>
-              <% }) %> 
+            <div class="flex xl:flex-row flex-col justify-between pt-8 xl:absolute bottom-0">
+              <div class="flex justify-center">
+                <% movie.genres.forEach((genre) => { %>
+                  <a href="/search/?genres=<%= genre %>" class="rounded-full border-white border-2 py-1 px-3 mr-5 hover:bg-gray-600"><%= genre %> </a>
+                <% }) %> 
+              </div>
+              <div class="text-center xl:pt-0 pt-6 2xl:pl-80 xl:pl-40 flex justify-center">
+                <span class="editable hidden cancel text-3xl hover:underline cursor-pointer font-bold  bottom-0 right-0 mr-6 ">Cancel</span>
+                <span class="editable hidden confirm text-blue-500 text-3xl hover:underline cursor-pointer font-bold bottom-0 right-0">Confirm</span>
+                <span data-id="<%= movie_id %>" class="editable edit text-3xl hover:underline cursor-pointer font-bold bottom-0 right-0 mr-6">Edit</span>
+                <a href="/password/?doc=title&id=<%= movie_id %>" class="editable text-3xl hover:underline cursor-pointer font-bold  bottom-0 right-0 text-red-500">Delete</a>
+              </div>
             </div>
-            <span class="editable hidden cancel text-3xl hover:underline cursor-pointer font-bold absolute bottom-0 right-0 mr-36">Cancel</span>
-            <span class="editable hidden confirm text-blue-500 text-3xl hover:underline cursor-pointer font-bold absolute bottom-0 right-0">Confirm</span>
-            <span data-id="<%= movie_id %>" class="editable edit text-3xl hover:underline cursor-pointer font-bold absolute bottom-0 right-0 mr-28">Edit</span>
-            <a href="/password/?doc=title&id=<%= movie_id %>" class="editable text-3xl hover:underline cursor-pointer font-bold absolute bottom-0 right-0 text-red-500">Delete</a>
           </div>
         </div>
       </section>

@@ -10,7 +10,7 @@
       <h2 class="text-4xl text-red-500 font-semibold"><%= queryKeys === 'title' ? `Searched for "${query}"` : query %> </h2>
       <section class="pt-16 flex flex-wrap justify-center">
         <% movies.forEach((movie) => { %>
-        <div class="text-center bg-gray-900 rounded-lg text-white h-[435px] w-[300px] m-4">
+        <div class="text-center bg-gray-900 rounded-lg text-white h-[435px] w-[350px] m-4">
             <a href="/title/<%= movie._id %>">
               <img
                 class="w-full h-[350px]"

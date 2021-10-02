@@ -1,8 +1,8 @@
 import Movie from '../models/movie.js';
 
 export const searchGetController = async (req, res, next) => {
-  const query = Object.values(req.query)[0] || 'All Movies';
-  const queryKeys = Object.keys(req.query)[0];
+  const query = Object.values(req.query)[0];
+  const queryKeys = Object.keys(req.query)[0] ;
   const queryArray = ['genres', 'title'];
 
   if (
