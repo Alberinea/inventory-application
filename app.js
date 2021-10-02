@@ -16,7 +16,9 @@ app.set('view engine', 'ejs');
 
 
 mongoose
-  .connect(process.env.URI)
+  .connect(
+    `mongodb+srv://${process.env.URI_USERNAME}:${process.env.URI_PASSWORD}@cluster0.4gvsm.mongodb.net/sample_mflix?retryWrites=true&w=majority`
+  )
   .then(app.listen(port, () => console.log(`listening on port ${port}`)))
   .catch((err) => {
     console.log(err);
