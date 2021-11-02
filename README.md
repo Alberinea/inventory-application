@@ -2,6 +2,8 @@
 
 ## Project: inventory-application
 
+![Screenshot](INCB.png)
+
 A movie source app inspired by [IMDB](https://www.imdb.com) that any user can edit data but only authoritative user can delete said data.
 
 Using [Tailwind JIT CDN](https://github.com/beyondcode/tailwindcss-jit-cdn) to write All CSS
